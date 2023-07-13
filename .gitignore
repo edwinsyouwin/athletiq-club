@@ -1,0 +1,9 @@
+# envrionement variables
+.env
+
+# node modules
+client/node_modules
+
+# python packages
+server/lib/*
+server/lib64/*
