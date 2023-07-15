@@ -186,7 +186,7 @@ def getTopicDF(topic, location, list_length=10):
 #         influencer_df = generateTopicContentDF(noun, topic, "2023", 10)
 #         return influencer_df
     
-
+generateTopicDF("sports", "United States", 10)
 topic_list = getTopicDF("sports", "United States", 11)
 
 print(topic_list)
