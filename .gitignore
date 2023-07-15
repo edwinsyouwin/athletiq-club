@@ -7,3 +7,9 @@ client/node_modules
 # python packages
 server/lib/*
 server/lib64/*
+server/bin/*
+server/include/*
+server/etc
+server/share
+
+.csv
