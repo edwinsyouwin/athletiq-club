@@ -12,15 +12,18 @@ import logging
 
 load_dotenv(dotenv_path="../../.env")
 
-# OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+
 # model = OpenAI(os.getenv("OPENAI_API_KEY"))
+llm = OpenAI(model="text-davinci-003" , temperature=0.0, OPENAI_API_KEY=OPENAI_API_KEY)
 # llm = GPT4All(model="orca-mini-3b.ggmlv3.q4_0.bin", n_threads=8)
+
 
 output_parser = CommaSeparatedListOutputParser()
 
 format_instructions = output_parser.get_format_instructions()
 
-def generateTopicList(topic, location, list_length=10, save=False, path=None):
+def generateTopicList(topic, location, list_length=10, save=False, path="scriptfiles/topics/"):
     list_length = str(list_length)
 
     prompt = PromptTemplate(
@@ -29,8 +32,6 @@ def generateTopicList(topic, location, list_length=10, save=False, path=None):
             partial_variables={"format_instructions": format_instructions}
 
         )
-    llm = OpenAI(model="text-davinci-003" , temperature=0.0)
-
     chain = LLMChain(llm=llm, prompt=prompt)
 
     topic_list = output_parser.parse(

@@ -2,18 +2,18 @@
 from langchain.llms import OpenAI, GPT4All
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
-from langchain.output_parsers import CommaSeparatedListOutputParser
+from langchain.output_parsers import CommaSeparatedListOutputParser, ResponseSchema, StructuredOutputParser
 import csv
 import pandas as pd
 from dotenv import load_dotenv
 import os
-from langchain.output_parsers import PydanticOutputParser
 # from pydantic import BaseModel, Field, validator
-from langchain.output_parsers import StructuredOutputParser, ResponseSchema
 import json
 import logging
 
 load_dotenv(dotenv_path="../../.env")
+
+print(os.getenv("OPENAI_API_KEY"))
 logging.basicConfig(filename='error.log', level=logging.ERROR, format='%(asctime)s - %(levelname)s - %(message)s')
 
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
@@ -27,7 +27,7 @@ output_parser = CommaSeparatedListOutputParser()
 
 format_instructions = output_parser.get_format_instructions()
 
-def generateTopicDF(topic, location, list_length=10):
+def generateTopicList(topic, location, list_length=10):
     list_length = str(list_length)
 
     prompt = PromptTemplate(
@@ -48,7 +48,7 @@ def generateTopicDF(topic, location, list_length=10):
 
     
     topic_df = pd.DataFrame({topic: topic_list})
-    topic_df.to_csv(f"{topic}_list.csv", index=True, header=True, index_label="Index")
+    topic_df.to_csv(f"{topic}_{location}_list.csv", index=True, header=True, index_label="Index")
 
     return topic_df
 
