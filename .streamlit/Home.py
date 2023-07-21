@@ -16,8 +16,8 @@ sys.path.append(os.path.join(os.getcwd(), 'server/scripts'))
 
 from render_svg import render_svg
 
-if 'OPENAI_API_KEY' not in st.session_state:
-    st.session_state['OPENAI_API_KEY'] = os.getenv("OPENAI_API_KEY")
+if os.getenv("OPENAI_API_KEY") is None:
+    st.text_input("Enter your OPENAI_API_KEY", key="OPENAI_API_KEY")
 
 f = open(".streamlit/athletiq-logo.svg","r")
 lines = f.readlines()
